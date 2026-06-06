@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ═══════════ PAGE 1: HOME ═══════════ -->
+<section class="page active" id="page-home">
+  <div class="home-content">
+    <span class="eyebrow">~  with much love  ~</span>
+    <h1>Happy <em>Birthday</em></h1>
+    <div class="name-line" id="name-display">to our dearest</div>
+
+    <div class="ornament">
+      <span class="line"></span>
+      <span class="dot"></span>
+      <span class="line"></span>
+    </div>
+
+    <p class="subtitle">
+      A little something we made for you — to celebrate
+      another year of who you are, and who you're becoming.
+    </p>
+
+    <button class="btn-continue" onclick="goTo('letters')">
+      Continue<span class="arrow">→</span>
+    </button>
+  </div>
+</section>
+
+<!-- ═══════════ PAGE 2: THINGS WE LOVE ═══════════ -->
+<section class="page" id="page-letters">
+  <div class="letters-container">
+    <div class="letters-header">
+      <span class="small-label">~ a letter from each of us ~</span>
+      <h2>Things We <strong>Love</strong> About You</h2>
+      <p class="hint">tap each envelope to open ✿</p>
+    </div>
+
+    <div class="letters-grid" id="letters-grid">
+      <!-- Envelopes injected by JS -->
+    </div>
+
+    <div style="margin-top: 3rem;">
+      <button class="btn-continue" onclick="goTo('carousel')">
+        See us all together<span class="arrow">→</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PAGE 3: CAROUSEL ═══════════ -->
+<section class="page" id="page-carousel">
+  <div class="carousel-container">
+    <div class="carousel-header">
+      <span class="small-label">~ a few of our moments together ~</span>
+      <h2>You, Us, & Everything In Between</h2>
+    </div>
+
+    <div class="carousel-frame" id="carousel-frame">
+      <!-- Slides injected by JS -->
+    </div>
+
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="prevSlide()" aria-label="Previous">‹</button>
+      <button class="carousel-btn play-pause" id="playPauseBtn" onclick="togglePlay()" aria-label="Play/Pause">⏸</button>
+      <button class="carousel-btn" onclick="nextSlide()" aria-label="Next">›</button>
+    </div>
+  </div>
+</section>
+
+<!-- Back button (shown on pages 2 & 3) -->
+<button class="back-btn" id="backBtn" onclick="goBack()" aria-label="Back">←</button>
+
+<!-- ═══════════ CARD OVERLAY ═══════════ -->
+<div class="card-overlay" id="card-overlay">
+  <div class="card-focus">
+    <button class="close-btn" onclick="closeCard()" aria-label="Close">✕</button>
+    <div class="from-line" id="card-focus-from"></div>
+    <div class="message" id="card-focus-message"></div>
+    <div class="signature" id="card-focus-signature"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

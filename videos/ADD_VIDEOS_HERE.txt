@@ -1,0 +1,12 @@
+Drop your .mp4 video files in this folder.
+
+Then in index.html, find the `mediaItems` array (near the bottom of the file)
+and uncomment / add lines like:
+
+    { type: "video", src: "videos/birthday-toast.mp4" },
+
+Tips:
+- .mp4 format works in every browser
+- Keep videos under ~50MB each so they load fast
+- Videos auto-mute (browsers require this for autoplay)
+- Mix freely with photos — the carousel shuffles them randomly
