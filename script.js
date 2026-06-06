@@ -49,6 +49,7 @@ const CONFIG = {
     { type: "image", src: "photos/younger.jpg" },
     { type: "image", src: "photos/divine-joseph.jpg" },
     { type: "image", src: "photos/divMumJoJo.jpg" },
+    { type: "image", src: "photos/familyfam.jpeg" },
     { type: "image", src: "photos/youngerDivJo.jpg" },
     { type: "image", src: "photos/divRCCG.jpeg" },
     { type: "video", src: "videos/dancewithJoseph.mp4" },
