@@ -13,7 +13,7 @@ const CONFIG = {
   letters: [
     {
       from: "Dad",
-      message: "From the moment you came into our lives, you brought a light that has never dimmed. Watching you grow into the woman you are today has been the greatest privilege of mine. Your kindness, your strength, your laugh that fills every room — I am so proud of you, always.",
+      message: "Happy birthday to you, Divine,\n\nYou are the one who first taught me the joy of parental love.\n\nWatching you grow from the tiny baby I held in my arms into the faithful, kind, and brilliant woman you are today has been one of the greatest privileges of my life. Indeed, you were the beginning of so many blessings in my life.\n\nToday, I thank God for your life, your faith, and your beautiful heart. May the Lord open doors of opportunity for you this year, protect your steps, and fill your heart with His perfect peace.\n\nLastly, as your father and your pastor, my prayer for you today comes from Numbers 6:24-26.\n\nI am incredibly proud to be your dad.\n\nMay God bless you.",
       signature: "— Love, Dad ♡"
     },
     {
@@ -24,12 +24,12 @@ const CONFIG = {
     {
       from: "Joseph",
       message: "Divine, my sister, you are truly a blessing in my life, and I am so grateful for you. No matter what I am going through, you are always there to support and help me whenever I need it. When I struggle to find the right words or say something myself, you are often the one who speaks for me and stands by my side.\n\nThank you for your kindness, your encouragement, and the love you show to those around you. I appreciate all the things you do, even the things that may go unnoticed.\n\nOn your birthday, I pray that God continues to guide you, protect you, and bless you with even more wisdom, understanding, knowledge, and strength. May He open new doors for you, help you achieve your goals, and fill your life with joy, peace, and happiness.\n\nHappy Birthday, Divine! I hope you have an amazing day and a wonderful year ahead. You deserve nothing but the best.",
-      signature: "— Joseph"
+      signature: "— Joseph the Don"
     },
     {
       from: "John",
       message: "There are too many things I love about you to fit in this little envelope, but here's the short version: you are funny, you are wise, you are stubborn in the best way, and you've always been my person. Wherever life takes you, I'll always be in your corner.",
-      signature: "— The Best Brother ♡"
+      signature: "— The Best Brother!!!"
     },
   ],
 
@@ -37,21 +37,21 @@ const CONFIG = {
   // Mix them however you like — they play in random order.
   // For videos use { type: "video", src: "your-video.mp4" }
   // For photos use { type: "image", src: "your-photo.jpg" }
+  // Add position: "top" / "bottom" / "center" / "left" / "right" to nudge cropping.
+  // Examples: position: "top center"  |  position: "50% 20%"
   mediaItems: [
     { type: "image", src: "photos/graduation.jpg" },
     { type: "image", src: "photos/in-holiday.jpg" },
-    { type: "image", src: "photos/justDivine.jpg" },
+    { type: "image", src: "photos/justDivine.jpg", position: "top center" },
     { type: "image", src: "photos/mumdaddivine.jpg" },
     { type: "image", src: "photos/nigeria.jpg" },
     { type: "image", src: "photos/siblings.jpg" },
-    { type: "image", src: "photos/withJoseph.jpg" },
-    { type: "image", src: "photos/withMum.jpg" },
+    { type: "image", src: "photos/withJoseph.jpg", position: "top center" },
+    { type: "image", src: "photos/withMum.jpg", position: "top center" },
     { type: "image", src: "photos/younger.jpg" },
     { type: "image", src: "photos/divine-joseph.jpg" },
-    { type: "image", src: "photos/divMumJoJo.jpg" },
-    { type: "image", src: "photos/familyfam.jpeg" },
     { type: "image", src: "photos/youngerDivJo.jpg" },
-    { type: "image", src: "photos/divRCCG.jpeg" },
+    { type: "image", src: "photos/divRCCG.jpeg", position: "top center" },
     { type: "video", src: "videos/dancewithJoseph.mp4" },
     { type: "video", src: "videos/holidaywithMum.mp4" },
     { type: "video", src: "videos/inLeicester.mp4" },
@@ -62,7 +62,15 @@ const CONFIG = {
 
   // 4. Carousel timing (milliseconds)
   slideDuration: 3500,
-  videoMaxDuration: 15000
+  videoMaxDuration: 15000,
+
+  // 5. Background music for the carousel (optional)
+  // Drop your mp3/ogg file into the project folder and set the path below.
+  // Set to null to disable music entirely.
+  music: {
+    src: "music/bigGod.mp3",
+    volume: 0.4,        // 0 (silent) to 1 (full)
+  }
 };
 
 /* ═══════════════════════════════════════════════════════
@@ -81,6 +89,7 @@ function openCard(letter) {
   cardFocusFrom.textContent = `From ${letter.from} — to ${CONFIG.sisterName}`;
   cardFocusMessage.innerHTML = letter.message.replace(/\n/g, '<br>');
   cardFocusSignature.textContent = letter.signature;
+  cardFocusMessage.scrollTop = 0;
   cardOverlay.classList.add('active');
 }
 
@@ -141,6 +150,9 @@ let carouselTimer = null;
 let carouselStarted = false;
 let isPlaying = true;
 let mediaOrder = [];
+let slideStartTime = null;
+let currentSlideDuration = 0;
+let pauseTime = null;
 
 function shuffle(arr) {
   const a = [...arr];
@@ -160,11 +172,13 @@ function buildSlide(item) {
     v.muted = true;
     v.playsInline = true;
     v.autoplay = true;
+    if (item.position) v.style.objectPosition = item.position;
     slide.appendChild(v);
   } else {
     const img = document.createElement('img');
     img.src = item.src;
     img.alt = '';
+    if (item.position) img.style.objectPosition = item.position;
     slide.appendChild(img);
   }
   return slide;
@@ -195,11 +209,15 @@ function showSlide(item) {
     });
   });
 
+  const duration = item.type === 'video'
+    ? CONFIG.videoMaxDuration
+    : CONFIG.slideDuration;
+  currentSlideDuration = duration;
+  slideStartTime = Date.now();
+  pauseTime = null;
+
   if (isPlaying) {
     clearTimeout(carouselTimer);
-    const duration = item.type === 'video'
-      ? CONFIG.videoMaxDuration
-      : CONFIG.slideDuration;
     carouselTimer = setTimeout(nextSlide, duration);
   }
 }
@@ -209,18 +227,64 @@ function startCarousel() {
   carouselStarted = true;
   mediaOrder = shuffle(CONFIG.mediaItems);
   nextSlide();
+  playMusic();
 }
 
 function stopCarousel() {
   clearTimeout(carouselTimer);
+  pauseMusic();
+}
+
+// ─── Music ────────────────────────────────────────────
+let audio = null;
+let musicMuted = false;
+
+if (CONFIG.music) {
+  audio = new Audio(CONFIG.music.src);
+  audio.loop = true;
+  audio.volume = CONFIG.music.volume ?? 0.4;
+}
+
+function playMusic() {
+  if (!audio || musicMuted) return;
+  audio.play().catch(() => {});
+}
+
+function pauseMusic() {
+  if (!audio) return;
+  audio.pause();
+}
+
+function toggleMusic() {
+  if (!audio) return;
+  musicMuted = !musicMuted;
+  const btn = document.getElementById('musicBtn');
+  if (musicMuted) {
+    audio.pause();
+    btn.classList.add('muted');
+  } else {
+    audio.play().catch(() => {});
+    btn.classList.remove('muted');
+  }
 }
 
 function togglePlay() {
   isPlaying = !isPlaying;
   const btn = document.getElementById('playPauseBtn');
   btn.textContent = isPlaying ? '⏸' : '▶';
-  if (isPlaying) nextSlide();
-  else clearTimeout(carouselTimer);
+  const activeSlide = frame.querySelector('.carousel-slide.active');
+  if (isPlaying) {
+    if (activeSlide) activeSlide.classList.remove('paused');
+    const elapsed = pauseTime !== null ? (pauseTime - slideStartTime) : 0;
+    const remaining = Math.max(500, currentSlideDuration - elapsed);
+    slideStartTime = Date.now() - elapsed;
+    pauseTime = null;
+    carouselTimer = setTimeout(nextSlide, remaining);
+  } else {
+    clearTimeout(carouselTimer);
+    pauseTime = Date.now();
+    if (activeSlide) activeSlide.classList.add('paused');
+  }
 }
 
 // Keyboard nav
