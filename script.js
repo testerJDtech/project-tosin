@@ -28,7 +28,7 @@ const CONFIG = {
     },
     {
       from: "John",
-      message: "There are too many things I love about you to fit in this little envelope, but here's the short version: you are funny, you are wise, you are stubborn in the best way, and you've always been my person. Wherever life takes you, I'll always be in your corner.",
+      message: "Sup Divine,\n\nI hope you’re well. I hope you enjoy this present. It’s a bit different than usual gifts and it just came about simply because I wanted to be intentional about encouraging you on your birthday.\n\nI could have gotten you food, maybe a spa day (which was discussed with myself and Joseph) and there are many other things but i wanted to give you something intentional, I wanted to give you something that would last.\n\nSo here is this. You are amazing, you are funny, you are special, you are annoying but ultimately, you are my sister. God appointed you to be my sister and I couldn’t have asked for a better one. I know I don’t say it a lot but I truly do love you and I always think about how I’m willing to protect you always if there ever needs to be! \n\nReally grateful for you and I hope you have a great and wonderful day or week as I know women love their birthday week celebration not just a day!!",
       signature: "— The Best Brother!!!"
     },
   ],
@@ -42,12 +42,12 @@ const CONFIG = {
   mediaItems: [
     { type: "image", src: "photos/graduation.jpg" },
     { type: "image", src: "photos/in-holiday.jpg" },
-    { type: "image", src: "photos/justDivine.jpg", position: "top center" },
-    { type: "image", src: "photos/mumdaddivine.jpg" },
+    { type: "image", src: "photos/justDivine.jpg", position: "top 90%" },
+    { type: "image", src: "photos/mumdaddivine.jpg", position: "top 80%" },
     { type: "image", src: "photos/nigeria.jpg" },
-    { type: "image", src: "photos/siblings.jpg" },
+    { type: "image", src: "photos/siblings.jpg", position: "top 120%" },
     { type: "image", src: "photos/withJoseph.jpg", position: "top center" },
-    { type: "image", src: "photos/withMum.jpg", position: "top center" },
+    { type: "image", src: "photos/withMum.jpg", position: "top 75%" },
     { type: "image", src: "photos/younger.jpg" },
     { type: "image", src: "photos/divine-joseph.jpg" },
     { type: "image", src: "photos/youngerDivJo.jpg" },

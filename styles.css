@@ -179,17 +179,18 @@ body::after {
 /* ═══ PAGE 2 — THINGS WE LOVE ═══════════════════════ */
 #page-letters {
   background: var(--cream-soft);
+  justify-content: flex-start;
 }
 
 .letters-container {
   width: 100%;
   max-width: 1100px;
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 2rem 1rem;
 }
 
 .letters-header {
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   opacity: 0;
   transition: opacity 1s 0.3s, transform 1s 0.3s;
   transform: translateY(20px);
@@ -234,14 +235,14 @@ body::after {
 .letters-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 2rem;
+  gap: 1.5rem;
   max-width: 900px;
   margin: 0 auto;
 }
 
 .envelope {
   perspective: 1200px;
-  height: 280px;
+  height: 240px;
   cursor: pointer;
   opacity: 0;
   transform: translateY(30px);
@@ -634,7 +635,7 @@ body::after {
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
   }
-  .envelope { height: 220px; }
+  .envelope { height: 190px; }
   .envelope-front .name-label { font-size: 1.5rem; bottom: 1.5rem; }
   .envelope-front .from-label { bottom: 3.5rem; font-size: 0.75rem; }
   .envelope-front .seal { width: 45px; height: 45px; }
